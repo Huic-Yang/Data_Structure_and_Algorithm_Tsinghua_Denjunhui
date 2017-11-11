@@ -73,5 +73,4 @@ $\lambda > 50%$
 <img src="https://latex.codecogs.com/gif.latex?$\alpha(\lambda)*log_2n&space;=&space;\lambda[1&plus;\alpha(\lambda)*log_2({\lambda&space;n})]&space;&plus;&space;(1-\lambda)[2&plus;\alpha(\lambda)*log_2((1-\lambda)n)]$" title="$\alpha(\lambda)*log_2n = \lambda[1+\alpha(\lambda)*log_2({\lambda n})] + (1-\lambda)[2+\alpha(\lambda)*log_2((1-\lambda)n)]$" />
 
 整理后：
-
-[latex]$\frac{-ln2}{\alpha(\lambda)} = \frac{\lambda*ln\lambda+(1-\lambda)*ln(1-\lambda)}{2-\lambda}$[/latex]
+<img src="https://latex.codecogs.com/gif.latex?$\frac{-ln2}{\alpha(\lambda)}&space;=&space;\frac{\lambda*ln\lambda&plus;(1-\lambda)*ln(1-\lambda)}{2-\lambda}$" title="$\frac{-ln2}{\alpha(\lambda)} = \frac{\lambda*ln\lambda+(1-\lambda)*ln(1-\lambda)}{2-\lambda}$" />
