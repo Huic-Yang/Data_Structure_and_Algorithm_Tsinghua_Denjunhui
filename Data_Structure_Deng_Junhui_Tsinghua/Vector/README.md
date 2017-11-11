@@ -70,8 +70,8 @@ $\lambda > 50%$
 `改进思路`：由于向右查找所需的花费更多，所以通过左右的长度按照适当的比例进行平衡，从而使得向左更多地出现，向右更少地出现。这种减少更坏情况的出现是改进算法的一种很重要的思路。
 
 `Fibonacci Search`:
-[tex]$\alpha(\lambda)*log_2n = \lambda[1+\alpha(\lambda)*log_2({\lambda n})] + (1-\lambda)[2+\alpha(\lambda)*log_2((1-\lambda)$][/tex]
+[latex]$\alpha(\lambda)*log_2n = \lambda[1+\alpha(\lambda)*log_2({\lambda n})] + (1-\lambda)[2+\alpha(\lambda)*log_2((1-\lambda)$][/latex]
 
 整理后：
 
-$\frac{-ln2}{\alpha(\lambda)} = \frac{\lambda*ln\lambda+(1-\lambda)*ln(1-\lambda)}{2-\lambda}$
+[latex]$\frac{-ln2}{\alpha(\lambda)} = \frac{\lambda*ln\lambda+(1-\lambda)*ln(1-\lambda)}{2-\lambda}$[/latex]
