@@ -172,7 +172,7 @@ Rank Vector<T>::search(const T &e, Rank lo, Rank hi) {
 
 /**
 protected methods
-*/
+*/  
 template<typename T>  // T为基本数据类型，或已重载赋值操作符'='
 void Vector::copy_from(const T *A, Rank lo, Rank hi) { // O(n)
   if (_elem) delete[] _elem;
