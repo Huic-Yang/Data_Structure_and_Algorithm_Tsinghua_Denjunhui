@@ -5,6 +5,8 @@
 
 #include "Fib.h"
 
+#include <stdlib.h>
+
 template<typename T>
 class Vector {
  public:
@@ -39,12 +41,17 @@ class Vector {
   int uniquify();
   void traverse(void (*)(T&));
   template<typename VST> void traverse(VST&);
+  void sort(Rank lo, Rank hi);
+  void bubble_sort(Rank lo, Rank hi);
  protected:
   void copy_from(const T *A, Rank lo, Rank hi);
   void expand();
   void shrink();
   Rank binary_search(T *_elem, const T &e, Rank lo, Rank hi);
   Rank fibonacci_search(T *_elem, const T &e, Rank lo, Rank hi);
+  Rank bubble(Rank lo, Rank hi);
+  void merge(Rank lo, Rank mi, Rank hi);
+  void merge_sort(Rank lo, Rank hi);
 };
 
 // consturctor and destructor
@@ -170,6 +177,22 @@ Rank Vector<T>::search(const T &e, Rank lo, Rank hi) {
     : fibonacci_search(_elem, e, lo, hi); // Fibonacci查找算法
 }
 
+template<typename T>
+Rank Vector<T>::sort(Rank lo, Rank hi) {
+  switch(rand() % 5) {
+    case 1: bubble_sort(lo, hi); break;
+    case 2: selection_sort(lo, hi); break;
+    case 3: merge_sort(lo, hi); break;
+    case 4: heap_sort(lo, hi); break;
+    default: quick_sort(lo, hi); break;
+  }
+}
+
+template<typename T>
+void Vector<T>::bubble_sort(Rank lo, Rank hi) {
+  while (lo < (hi = bubble(lo, hi))) {}
+}
+
 /**
 protected methods
 */
@@ -206,11 +229,11 @@ void Vector::shrink() {
 
 template<typename T>
 Rank Vector<T>::binary_search(T *_elem, const T &e, Rank lo, Rank hi) {
-  while (lo < hi) {
-    Rank mi = (hi - lo) >> 1;
-    (e <= _elem[mi])? hi = mi : lo = mi + 1;
-  }
-  return --lo;
+  while (lo < hi) { // 不变性：A[0, lo) <= e < A[hi, n)
+    Rank mi = (hi - lo) >> 1; // 以中点为轴点，经比较后确定深入
+    (e <= _elem[mi])? hi = mi : lo = mi + 1; // [lo, mi)或(mi, hi]
+  } // 出口时，A[lo = hi]为大于e的最小元素
+  return --lo; // 故lo - 1即为不大于e的元素的最大秩
 }
 
 template<typename T> // 0 <= lo <= hi <= _size
@@ -227,4 +250,39 @@ Rank Vector<T>::fibonacci_search(T *A, const T &e, Rank lo, Rank hi) {
   return -1; // 查找失败
 }
 
+template<typename T>
+Rank Vector<T>::bubble(Rank lo, Rank hi) {
+  Rank last = lo;
+  while (++lo < hi) {
+    if (_elem[lo - 1] < _elem[lo]) {
+      swap(_elem[lo - 1], _elem[lo]);
+      last = lo;
+    }
+  }
+  return last;
+}
+
+template<typename T>
+void Vector<T>::merge(Rank lo, Rank mi, Rank hi) {
+  T temp_array = new T[mi - lo];
+  for (Rank i = lo; i < mi; ++i) temp_array[i - lo] = _elem[i];
+  Rank i = lo, p = lo, q = mi
+  while (p < mi && q < hi) {
+    if (temp_array[p] < _elem[q])
+      _elem[i++] = temp_array[p++];
+    else
+      _elem[i++] = _elem[q++];
+  }
+  while (p < mi) _elem[i++] = temp_array[p++];
+  delete [] temp_array;
+}
+
+template<typename T>
+void Vector<T>::merge_sort(Rank lo, Rank hi) { // O(nlogn)
+  if (hi - 1 <= lo) return; // 单元素区间自然有序
+  Rank mi = (lo + hi) >> 1; // 以中点为界
+  merge_sort(lo, mi); // 对前半段排序
+  merge_sort(mi, hi); // 对后半段排序
+  merge(lo, mi, hi); // 归并
+}
 #endif // VECTOR_H_
